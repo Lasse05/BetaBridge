@@ -3,12 +3,16 @@ import os
 import paho.mqtt.client as mqtt
 import json
 import wget
+import hashlib
 
 with open('/home/pi/data.json') as json_file:
     data = json.load(json_file)
 name = data['id']
 ip = data['ip']
-
+def encrypt_string(hash_string):
+    sha_signature = \
+        hashlib.sha256(hash_string.encode()).hexdigest()
+    return sha_signature
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     client.subscribe("update" + name)
@@ -35,7 +39,8 @@ client.on_message = on_message
 client.on_disconnect = on_disconnect
 
 
-    
+client.username_pw_set(name,encrypt_string(name))
+   
 client.connect(ip, 1883)
 client.loop_forever()
 def main():
