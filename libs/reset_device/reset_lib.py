@@ -71,10 +71,8 @@ def is_wifi_active():
 	iwconfig_out = subprocess.check_output(['iwconfig']).decode('utf-8')
 	wifi_active = True
 	ip = subprocess.check_output("ping -c 1 -w 1 1.1.1.1 >/dev/null", shell=True)
-    if "Network is unreachable" in ip:
-		if "Access Point: Not-Associated" in iwconfig_out:
-			wifi_active = False
-
+	if "Access Point: Not-Associated" in iwconfig_out and "unreachable" in ip:
+		wifi_active = False
 	return wifi_active
 
 def reset_to_host_mode():
