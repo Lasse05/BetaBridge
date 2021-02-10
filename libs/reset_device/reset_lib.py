@@ -68,12 +68,15 @@ def update_ssid(ssid_prefix, serial_last_four):
 	return reboot_required
 
 def is_wifi_active():
-	iwconfig_out = subprocess.check_output(['iwconfig']).decode('utf-8')
-	wifi_active = True
-	ip = subprocess.check_output("ping -c 1 -w 1 1.1.1.1", shell=True)
-	if "Access Point: Not-Associated" in iwconfig_out and "unreachable" in ip:
-		wifi_active = False
-	return wifi_active
+	ps = subprocess.Popen(['iwgetid'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	try:
+		output = subprocess.check_output(('grep', 'ESSID'), stdin=ps.stdout)
+		print(output)
+		return True
+	except subprocess.CalledProcessError:
+		# grep did not match any lines
+		print("No wireless networks connected")
+		return False
 
 def reset_to_host_mode():
 	if not os.path.isfile('/etc/raspiwifi/host_mode'):
