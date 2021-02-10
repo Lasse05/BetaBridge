@@ -70,7 +70,7 @@ def update_ssid(ssid_prefix, serial_last_four):
 def is_wifi_active():
 	iwconfig_out = subprocess.check_output(['iwconfig']).decode('utf-8')
 	wifi_active = True
-	ip = subprocess.check_output("ping -c 1 -w 1 1.1.1.1 >/dev/null", shell=True)
+	ip = subprocess.check_output("ping -c 1 -w 1 1.1.1.1", shell=True)
 	if "Access Point: Not-Associated" in iwconfig_out and "unreachable" in ip:
 		wifi_active = False
 	return wifi_active
