@@ -60,7 +60,3 @@ print("#####################################")
 print()
 print()
 print("Initial setup is complete. A reboot is required to start in WiFi configuration mode...")
-reboot_ans = 'y'
-
-if reboot_ans.lower() == 'y':
-	os.system('reboot')
