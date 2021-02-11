@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=/usr/bin/python /home/pi/RaspiWiFi/updater.py
+ ExecStart=/usr/bin/python /home/pi/BetaBridge/updater.py
  User=root
  RestartSec=3
  Restart=on-failure
