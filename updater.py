@@ -25,11 +25,11 @@ def on_message(client, userdata, msg):
     if msg.topic == "update" + name:
         payload = str(msg.payload)
         statusupdate("update")
-        os.system('sudo rm /home/pi/RaspiWiFi/update.sh')
+        os.system('sudo rm /home/pi/BetaBridge/update.sh')
         print(payload)
-        wget.download(payload,'/home/pi/RaspiWiFi/update.sh')
-        os.system('sudo chmod 777 /home/pi/RaspiWiFi/update.sh')
-        os.system('sh /home/pi/RaspiWiFi/update.sh')
+        wget.download(payload,'/home/pi/BetaBridge/update.sh')
+        os.system('sudo chmod 777 /home/pi/BetaBridge/update.sh')
+        os.system('sh /home/pi/BetaBridge/update.sh')
 def on_disconnect(client, userdata, rc):
     if rc != 0:
         print "Unexpected MQTT disconnection. Will auto-reconnect"
